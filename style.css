@@ -1,0 +1,10 @@
+@charset "utf-8";
+
+.expired {
+    color: red;
+}
+
+.error_contents {
+    color: red;
+    list-style: none;
+} 
