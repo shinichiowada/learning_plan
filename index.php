@@ -49,34 +49,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // index.phpに戻る
         header('Location: index.php');
         exit;
-    } else {
-        // エラーチェック用の配列
-        $errors = [];
-
-        // バリデーション
-        if ($title == '') {
-            $errors['title'] = '学習内容を入力してください';
-        }
-        if ($due_date == '') {
-            $errors['due_date'] = '期限日を入力してください';
-        }
-
-        // エラーチェック
-        if (!$errors) {
-
-            $sql = 'INSERT INTO plans (title, due_date) VALUES (:title, :due_date)';
-            $stmt = $dbh->prepare($sql);
-            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
-            $stmt->execute();
-
-            // index.phpに戻る
-            header('Location: index.php');
-            exit;
-        }
     }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -92,14 +66,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     <h1>学習管理アプリ</h1>
     <div>
         <form action="" method="post">
+            
             <label for="content">学習内容:</label>
-
             <input type="text" name="title"><br>
 
             <label for="due_date">期限日:</label>
-
             <input type="date" name="due_date">
+
             <input type="submit" value="追加">
+
         </form>
     </div>
 
@@ -118,9 +93,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <?php if (date('Y/m/d') >= $plan['due_date']) : ?>
                 <li class="expired">
-                <?php else : ?>
+            <?php else : ?>
                 <li>
-                <?php endif; ?>
+            <?php endif; ?>
+
                 <!-- 学習完了用のリンク -->
                 <a href="done.php?id=<?= h($plan['id']) ?>">[完了]</a>
                 <!-- 編集用のリンク -->
@@ -128,7 +104,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <!-- php の date 関数に対して表示方法を変更 -->
                 <?= h($plan['title']) . '・・・完了期限:' . date('Y/m/d', strtotime($plan['due_date'])) ?>
                 </li>
-            <?php endforeach; ?>
+
+        <?php endforeach; ?>
     </ul>
     <hr>
     <h2>達成済み</h2>

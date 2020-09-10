@@ -52,36 +52,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         header('Location: index.php');
         exit;
-    } else {
-
-        // エラーチェック用の配列
-        $errors = [];
-
-        // バリデーション
-        if ($title == '') {
-            $errors['title'] = '学習内容を入力してください';
-        }
-        if ($due_date == '') {
-            $errors['due_date'] = '期限日を入力してください';
-        }
-        if ($title == $plan['title'] && $due_date == $plan['due_date']) {
-            $errors['title'] = '変更内容がありません';
-        }
-
-        // エラーが1つもなければレコードを更新
-        if (!$errors) {
-
-            $sql = 'UPDATE plans SET title = :title, due_date = :due_date WHERE id = :id';
-
-            $stmt = $dbh->prepare($sql);
-            $stmt->bindParam(':title', $title, PDO::PARAM_STR);
-            $stmt->bindParam(':due_date', $due_date, PDO::PARAM_STR);
-            $stmt->bindParam(':id', $id, PDO::PARAM_INT);
-            $stmt->execute();
-
-            header('Location: index.php');
-            exit;
-        }
     }
 }
 ?>
