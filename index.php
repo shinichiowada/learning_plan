@@ -92,18 +92,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <?php foreach ($notyet_plans as $plan) : ?>
 
             <?php if (date('Y/m/d') >= $plan['due_date']) : ?>
-                <li class="expired">
+            <li class="expired">
             <?php else : ?>
-                <li>
+            <li>
             <?php endif; ?>
 
-                <!-- 学習完了用のリンク -->
-                <a href="done.php?id=<?= h($plan['id']) ?>">[完了]</a>
-                <!-- 編集用のリンク -->
-                <a href="edit.php?id=<?= h($plan['id']) ?>">[編集]</a>
-                <!-- php の date 関数に対して表示方法を変更 -->
-                <?= h($plan['title']) . '・・・完了期限:' . date('Y/m/d', strtotime($plan['due_date'])) ?>
-                </li>
+            <!-- 学習完了用のリンク -->
+            <a href="done.php?id=<?= h($plan['id']) ?>">[完了]</a>
+            <!-- 編集用のリンク -->
+            <a href="edit.php?id=<?= h($plan['id']) ?>">[編集]</a>
+            <!-- php の date 関数に対して表示方法を変更 -->
+            <?= h($plan['title']) . '・・・完了期限:' . date('Y/m/d', strtotime($plan['due_date'])) ?>
+            </li>
 
         <?php endforeach; ?>
     </ul>
