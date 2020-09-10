@@ -1,0 +1,9 @@
+@charset "utf-8";
+
+.error-list li {
+    color: red;
+}
+
+.expired {
+    color: red;
+} 
